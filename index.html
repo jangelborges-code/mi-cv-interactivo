@@ -1,0 +1,582 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Jose Angel Borges - CV Interactivo</title>
+
+    <!-- Open Graph / WhatsApp Card -->
+    <meta property="og:title" content="Jose Angel Borges - CV Interactivo">
+    <meta property="og:description" content="Estratega comercial y Desarrollador de Proyectos Empresariales. Explora mi trayectoria interactiva.">
+    <meta property="og:image" content="imagenes/tarjeta-visual-wp.png">
+    <meta property="og:type" content="website">
+
+    <!-- Tipografías -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500&family=Space+Grotesk:wght@300;400;500;600&display=swap" rel="stylesheet">
+
+    <style>
+        :root {
+            --bg-main: radial-gradient(circle at center, #FFFFFF 0%, #F0F2F5 100%);
+            --accent-gold-solid: #D4AF37;
+            --accent-gold-trans: rgba(212, 175, 55, 0.3);
+            --accent-gold-glow: rgba(212, 175, 55, 0.4);
+            --text-main: #4A3B32;
+            --text-sub: #595959;
+            --text-muted: #8C8C8C;
+            --glass-bg: rgba(255, 255, 255, 0.45);
+            --glass-border: 1px solid rgba(255, 255, 255, 0.6);
+            --glass-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.03), inset 0 0 0 1px rgba(255, 255, 255, 0.5);
+            --glass-radius: 12px;
+            --glass-blur: blur(12px);
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        body {
+            background: var(--bg-main);
+            color: var(--text-main);
+            font-family: 'Inter', sans-serif;
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 2rem;
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+
+        h1, h2, h3, h4 { 
+            font-family: 'Space Grotesk', sans-serif; 
+            font-weight: 300; 
+            text-transform: uppercase; 
+            letter-spacing: 0.1em; 
+        }
+
+        .app-container { width: 100%; max-width: 1100px; margin: 0 auto; }
+
+        .glass-panel {
+            background: var(--glass-bg);
+            backdrop-filter: var(--glass-blur);
+            -webkit-backdrop-filter: var(--glass-blur);
+            border: var(--glass-border);
+            border-radius: var(--glass-radius);
+            box-shadow: var(--glass-shadow);
+            padding: 3rem;
+            position: relative;
+            z-index: 10;
+        }
+
+        #home-view { display: grid; grid-template-columns: 1fr; gap: 4rem; }
+        @media (min-width: 900px) { #home-view { grid-template-columns: 0.9fr 1.1fr; align-items: center; padding: 4rem; } }
+
+        .profile-section { display: flex; flex-direction: column; gap: 1.5rem; }
+        .profile-photo {
+            width: 120px; height: 120px; border-radius: 50%;
+            border: 2px solid var(--accent-gold-trans);
+            overflow: hidden; box-shadow: var(--glass-shadow);
+            background: white;
+            display: flex; justify-content: center; align-items: center;
+        }
+        .profile-photo img { width: 100%; height: 100%; object-fit: cover; }
+
+        .profile-name { font-size: 2.2rem; font-weight: 400; color: var(--text-main); letter-spacing: 0.15em; }
+        .profile-bio { text-align: justify; font-size: 15px; color: var(--text-sub); }
+
+        .timeline-section { position: relative; padding: 2rem 0; display: flex; flex-direction: column; gap: 3.5rem; }
+        .timeline-line {
+            position: absolute; left: 24px; top: 0; bottom: 0; width: 2px;
+            background: linear-gradient(to bottom, transparent, var(--accent-gold-solid) 10%, var(--accent-gold-solid) 90%, transparent);
+            opacity: 0.4;
+        }
+
+        .timeline-node { position: relative; display: flex; align-items: center; cursor: pointer; z-index: 2; transition: all 0.3s ease; }
+        .node-marker {
+            width: 50px; height: 50px; border-radius: 50%;
+            background: white; border: 2px solid var(--accent-gold-trans);
+            box-shadow: var(--glass-shadow); flex-shrink: 0;
+            display: flex; align-items: center; justify-content: center; overflow: hidden;
+            padding: 5px;
+        }
+        .node-marker img { width: 100%; height: 100%; object-fit: contain; }
+
+        .node-content { display: flex; flex-direction: column; padding-left: 15px; transition: transform 0.3s ease; }
+        .node-title { font-size: 16px; font-weight: 500; letter-spacing: 0.05em; color: var(--text-main); }
+        .node-date { font-size: 13px; color: var(--text-muted); }
+
+        .timeline-node:hover .node-marker { border-color: var(--accent-gold-solid); box-shadow: 0 0 15px var(--accent-gold-glow); transform: scale(1.1); }
+        .timeline-node:hover .node-content { transform: translateX(8px); }
+
+        .btn-back {
+            display: inline-flex; align-items: center; gap: 8px;
+            background: transparent; border: none; color: var(--text-sub);
+            font-family: 'Space Grotesk', sans-serif; font-size: 14px;
+            text-transform: uppercase; letter-spacing: 0.1em; cursor: pointer;
+            transition: all 0.3s ease; margin-bottom: 2.5rem;
+        }
+        .btn-back:hover { color: var(--accent-gold-solid); transform: translateX(-5px); }
+
+        .subpage-container { display: grid; grid-template-columns: 7fr 3fr; gap: 3rem; }
+        .job-header { display: flex; align-items: center; gap: 1.5rem; margin-bottom: 2rem; }
+        .logo-placeholder { 
+            width: 80px; height: 80px; border-radius: 50%; background: white; 
+            border: 1px solid var(--accent-gold-trans); display: flex; align-items: center; 
+            justify-content: center; flex-shrink: 0; overflow: hidden; padding: 10px;
+        }
+        .logo-placeholder img { width: 100%; height: 100%; object-fit: contain; }
+
+        #sp-rol { font-size: 1.8rem; margin-bottom: 0.2rem; color: var(--text-main); }
+        #sp-empresa-fechas { font-size: 14px; color: var(--accent-gold-solid); font-weight: 500; display: block; margin-top: 5px; }
+        #sp-intro { margin-bottom: 2.5rem; text-align: justify; font-size: 15px; color: var(--text-sub); }
+
+        .main-column h3 { font-size: 1.2rem; margin-bottom: 1.5rem; color: var(--text-main); }
+
+        .custom-list { list-style: none; display: flex; flex-direction: column; gap: 1.2rem; }
+        .custom-list li { position: relative; padding-left: 1.8rem; font-size: 15px; color: var(--text-sub); text-align: justify; }
+        .custom-list li::before { 
+            content: ''; position: absolute; left: 0; top: 8px; width: 6px; height: 6px; 
+            border-radius: 50%; background: var(--accent-gold-solid); 
+        }
+
+        .sidebar-column { display: flex; flex-direction: column; gap: 2.5rem; }
+        
+        .sidebar-title { 
+            font-size: 11px; color: var(--text-muted); margin-bottom: 1rem; 
+            border-bottom: 1px solid rgba(0,0,0,0.05); padding-bottom: 0.5rem; 
+        }
+        
+        .tag-group { display: flex; flex-wrap: wrap; gap: 0.5rem; margin-bottom: 1.5rem; }
+        .tag { 
+            background: rgba(255, 255, 255, 0.8); border: 1px solid rgba(212, 175, 55, 0.3); 
+            font-size: 11px; padding: 6px 12px; border-radius: 20px; color: var(--text-sub);
+            box-shadow: 0 2px 5px rgba(0,0,0,0.02);
+        }
+
+        .evidence-carousel { 
+            width: 100%; aspect-ratio: 1/1; border-radius: 12px; overflow: hidden; 
+            border: 1px solid var(--accent-gold-trans); 
+            box-shadow: var(--glass-shadow);
+        }
+        .evidence-carousel img { width: 100%; height: 100%; object-fit: cover; }
+
+        /* Estilos del Carrusel de Clientes (Restaurados y Mejorados) */
+        #sp-clients-container {
+            display: none;
+            flex-direction: column;
+            align-items: center;
+            margin-top: 0.5rem;
+        }
+
+        #sp-clients-title {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 13px;
+            letter-spacing: 0.05em;
+            text-transform: uppercase;
+            color: #000;
+            border-bottom: 2px solid #000;
+            padding-bottom: 3px;
+            margin-bottom: 1.5rem;
+            font-weight: 600;
+            display: inline-block;
+            text-align: center;
+        }
+
+        #sp-clients-track {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 15px;
+            width: 100%;
+            height: 90px;
+        }
+
+        .client-logo {
+            width: 45px;
+            height: 45px;
+            object-fit: contain;
+            opacity: 0.4;
+            border-radius: 0;
+            transition: all 0.3s ease;
+        }
+
+        /* Efecto exacto de tu captura: logo central más grande con borde */
+        .client-logo.current-logo {
+            width: 85px;
+            height: 85px;
+            opacity: 1;
+            border: 2px solid #000;
+            padding: 8px;
+            background: #fff;
+            transform: scale(1);
+        }
+
+        .view-hidden { display: none !important; }
+        .view-active { animation: fadeInUp 0.5s ease-in-out forwards; }
+        @keyframes fadeInUp { 0% { opacity: 0; transform: translateY(20px); } 100% { opacity: 1; transform: translateY(0); } }
+
+        @media (max-width: 900px) { .subpage-container { grid-template-columns: 1fr; } }
+    </style>
+</head>
+<body>
+
+    <div class="app-container">
+        
+        <!-- VISTA: HOME -->
+        <main id="home-view" class="glass-panel">
+            <section class="profile-section">
+                <div class="profile-photo">
+                    <img src="imagenes/perfil-cv.jpg" alt="Jose Angel Borges">
+                </div>
+                <h1 class="profile-name">JOSE ANGEL BORGES</h1>
+                <p class="profile-bio">
+                    Estratega comercial y Desarrollador de Proyectos Empresariales con un ADN profundamente emprendedor. Gracias a una curiosidad insaciable mi trayectoria abarca desde la fundación de negocios rentables a temprana edad hasta el liderazgo corporativo en Growth y automatización B2B. Desde Escalar autoempleos hasta liderar operaciones corporativas B2B y automatización tecnológica. Mi enfoque integra inteligencia comercial, Ventas de High Ticket y Arquitectura de sistemas para escalar resultados tangibles manteniendome al tanto de las ultimas tendencias en ecosistemas de AI, Prompt y Software Engineering.
+                </p>
+                <p style="font-size: 12px; color: var(--text-muted); font-style: italic;">* Haga clic en los nodos de la línea de tiempo para ver el detalle.</p>
+            </section>
+
+            <section class="timeline-section">
+                <div class="timeline-line"></div>
+                
+                <article class="timeline-node" data-id="cocky">
+                    <div class="node-marker"><img src="imagenes/logo-cocky.png" alt="Logo Cocky Pet"></div>
+                    <div class="node-content"><h2 class="node-title">COCKY PET</h2><span class="node-date">2018 - 2020</span></div>
+                </article>
+                
+                <article class="timeline-node" data-id="workademy">
+                    <div class="node-marker"><img src="imagenes/logo-wk.jpg" alt="Logo Workademy"></div>
+                    <div class="node-content"><h2 class="node-title">MUSCLE PE - WORKADEMY</h2><span class="node-date">2019 - 2022</span></div>
+                </article>
+                
+                <article class="timeline-node" data-id="solbie">
+                    <div class="node-marker"><img src="imagenes/logo-solbie.jpg" alt="Logo Solbie"></div>
+                    <div class="node-content"><h2 class="node-title">SOLBIE / IMPORTADORA VISUAL</h2><span class="node-date">2021 - 2023</span></div>
+                </article>
+                
+                <article class="timeline-node" data-id="royal">
+                    <div class="node-marker"><img src="imagenes/logo-rp.jpg" alt="Logo Royal Prestige"></div>
+                    <div class="node-content"><h2 class="node-title">ROYAL PRESTIGE</h2><span class="node-date">2023 - 2024</span></div>
+                </article>
+                
+                <article class="timeline-node" data-id="nihm">
+                    <div class="node-marker"><img src="imagenes/logo-nihm.png" alt="Logo NIHM"></div>
+                    <div class="node-content"><h2 class="node-title">NIHM</h2><span class="node-date">2024 - 2025</span></div>
+                </article>
+            </section>
+        </main>
+
+        <!-- VISTA: SUBPÁGINA -->
+        <main id="subpage-view" class="glass-panel view-hidden">
+            <button class="btn-back">← Volver al inicio</button>
+            <div class="subpage-container">
+                
+                <!-- Columna Izquierda (70%) -->
+                <div class="main-column">
+                    <header class="job-header">
+                        <div id="sp-logo" class="logo-placeholder"></div>
+                        <div>
+                            <h2 id="sp-rol"></h2>
+                            <span id="sp-empresa-fechas"></span>
+                        </div>
+                    </header>
+                    <p id="sp-intro"></p>
+                    
+                    <h3>Logros Estratégicos</h3>
+                    <ul id="sp-logros" class="custom-list"></ul>
+                </div>
+                
+                <!-- Columna Derecha (30%) -->
+                <aside class="sidebar-column">
+                    <!-- Bloque Completo de Recursos Restaurado -->
+                    <div>
+                        <div id="wrapper-estrategias">
+                            <h4 class="sidebar-title">ESTRATEGIAS</h4>
+                            <div id="sp-estrategias" class="tag-group"></div>
+                        </div>
+                        
+                        <div id="wrapper-herramientas">
+                            <h4 class="sidebar-title">HERRAMIENTAS</h4>
+                            <div id="sp-herramientas" class="tag-group"></div>
+                        </div>
+
+                        <div id="wrapper-habilidades">
+                            <h4 class="sidebar-title">HABILIDADES</h4>
+                            <div id="sp-habilidades" class="tag-group"></div>
+                        </div>
+                    </div>
+                    
+                    <div id="sp-evidence-container">
+                        <h4 id="sp-evidence-title" class="sidebar-title">UN POCO DE...</h4>
+                        <div class="evidence-carousel">
+                            <img id="sp-evidence" src="" alt="Evidencia Visual">
+                        </div>
+                    </div>
+
+                    <!-- Contenedor de Carrusel de Clientes -->
+                    <div id="sp-clients-container">
+                        <h4 id="sp-clients-title">ALGUNOS CLIENTES</h4>
+                        <div id="sp-clients-track">
+                            <!-- Inyectado vía JS -->
+                        </div>
+                    </div>
+                </aside>
+
+            </div>
+        </main>
+    </div>
+
+    <script>
+        // Datos exactos y COMPLETOS restaurados desde "CV Contenido"
+        const cvData = {
+            cocky: {
+                empresa: "Cocky Pet",
+                rol: "FUNDADOR & DIRECTOR COMERCIAL | COCKY PET",
+                fechas: "2018 – 2020",
+                intro: `A los 15 años, transformé un autoempleo de paseo de perros en una estructura empresarial delegada. Aplicando una curiosidad insaciable y principios de educación financiera, pasé de cobrar 5 soles por hora a diseñar planes de suscripción mensual que aseguraban la retención del cliente y la recurrencia del flujo de caja.`,
+                logros: [
+                    "Optimización de Modelo e Ingresos: Rediseñar la oferta comercial logrando un incremento del pago por hora de 5 a 12 soles y creando planes de s/ 500 - s/ 800 x mes, alcanzando una facturación recurrente de 4,000 soles mensuales de ingreso neto en los periodos de mayor rendimiento.",
+                    "Dirección y Delegación: Construí y lideré un equipo operativo de 6 colaboradores (paseadores, entrenadores y freelancers digitales), permitiéndome migrar de la ejecución a la dirección estratégica.",
+                    "Gestión de Marca y Tráfico: Coordiné a freelancers para desarrollar una identidad visual profesional y ejecuté campañas en Facebook Ads que automatizaron la captación de clientes con costos de adquisición mínimo.",
+                    "Aprendizaje por Resultados: Esta etapa concluyó con una lección crítica sobre la madurez en el liderazgo y la importancia de la presencia en la gestión de equipos para evitar la desintermediación del servicio."
+                ],
+                estrategias: ["Transición a modelos de ingresos recurrentes (LTV)", "Prospección directa en Frío y Growth a través de pauta digital y community management."],
+                herramientas: ["Facebook Ads", "Gestión de freelancers (Branding)", "Estructuración de flujos de pago y Educación financiera aplicada."],
+                habilidades: ["Liderazgo de equipos operativos", "Pensamiento sistémico."],
+                logo: "imagenes/logo-cocky.png",
+                evidence: "imagenes/cocky.jpg",
+                evidenceTitle: "COCKY",
+                clientes: []
+            },
+            workademy: {
+                empresa: "Muscle PE – WORKADEMY",
+                rol: "FUNDADOR & DIRECTOR DE OPERACIONES | MUSCLE PE",
+                fechas: "2019 – 2022",
+                intro: `Impulsado por una fascinación por la calistenia y el entrenamiento funcional, fundé Muscle PE, una distribuidora de equipamiento especializado (importaciones B2B/B2C). Lo que inició como una operación logística de suministros para centros de CrossFit y clubes de gimnasia, se transformó ante la crisis global de 2020 en WORKADEMY, una plataforma de educación digital.`,
+                logros: [
+                    "Gestión Logística e Importaciones: Establecí un sistema de suministro mediante importaciones desde Alibaba/AliExpress, gestionando el stock y la distribución mayorista para cuentas clave en centros deportivos de Lima.",
+                    "Construcción de Comunidad: Fomenté el crecimiento orgánico de la marca mediante el patrocinio de competencias y activaciones físicas, priorizando el posicionamiento y la autoridad en el mercado de entrenamiento en casa.",
+                    "Pivotaje y Escalabilidad Digital: En pandemia, reinventé el modelo de negocio hacia los infoproductos, logrando reconocimientos en Hotmart por el volumen de ventas y la calidad del programa \"Aconditioning\" y “Masa Muscular con Calistenia”, tras un proceso de producción de 4-6 meses cada uno.",
+                    "Ingeniería de Embudos de Venta: Diseñe y ejecuté una estrategia de lanzamiento masivo junto a influencers del rubro, integrando contenido gratuito, webinars estratégicos basados en storytelling y un sistema de conversión que derivó en ventas de planes personalizados y programas únicos.",
+                    "Liderazgo de Equipos Multidisciplinarios: Coordiné un equipo de 6 especialistas, incluyendo atletas profesionales y editores de contenido, para la creación de identidad visual y material educativo de nivel profesional."
+                ],
+                estrategias: ["Lanzamientos digitales (Product Launch Formula)", "Storytelling enfocado en ventas (StoryBrand)", "Importaciones y Dropshipping", "Gestión de alianzas con influencers."],
+                herramientas: ["Hotmart", "Alibaba/AliExpress", "Facebook Ads", "Google Workspace", "Herramientas de edición profesional (Premiere, After Effects, Illustrator, PS, Canva, Hotmart, Ucademy, Macros, Appscript, python)"],
+                habilidades: ["Resiliencia operativa", "Diseño de producto digital", "Gestión de comunidades y Liderazgo de equipos técnicos/deportivos."],
+                logo: "imagenes/logo-wk.jpg",
+                evidence: "imagenes/wk.jpg",
+                evidenceTitle: "WORKADEMY",
+                clientes: [
+                    "imagenes/logo-cliente-colonia.png",
+                    "imagenes/logo-cliente-wk-altair.jpg",
+                    "imagenes/logo-cliente-escuela-gimnasia.jpg",
+                    "imagenes/logo-cliente-titan-crossfit.jpg",
+                    "imagenes/logo-cliente-wk-cfperu.jpg"
+                ]
+            },
+            solbie: {
+                empresa: "Solbie – Importadora Visual",
+                rol: "DIRECTOR DE ESTRATEGIA DIGITAL | CONSULTOR DE VENTAS",
+                fechas: "2021 – 2023",
+                intro: `En este periodo, gestioné de manera híbrida la creación de un ecosistema digital y la ejecución comercial en el sector de lujo. En Solbie, como parte de una sociedad de tres integrantes, dediqué el 30% de mi tiempo a estructurar una agencia basada Conectar Freelancers con Proyectos digitales para empresas. Simultáneamente, en Importadora Visual, hice consultoría comercial y expansión nacional de marcas Cartier, Gucci, Montblanc y Puma, en su linea Eyewear para consolidar relaciones B2B y captar oportunidades en mercados regionales.`,
+                logros: [
+                    "Operación de Ecosistema Digital: Desarrollé la tercerización estratégica de servicios (fotografía, community management, edición) a través de plataformas como Fiverr y Referidos, conectando talento independiente con necesidades corporativas reales.",
+                    "Gestión de Portafolio y Liderazgo: Coordiné estrategias digitales y hojas de ruta para un pool de hasta 4 empresas, gestionando hitos, metas y la alineación de visiones entre socios de diferentes perfiles.",
+                    "Expansión B2B Nacional: Lideré la prospección y cierre de ventas en el sector óptico a nivel nacional, ejecutando rutas comerciales presenciales en ciudades como Huancayo, Huánuco, Pucallpa, Arequipa, Trujillo y Tarma para la distribución de monturas oftalmicas de lujo.",
+                    "Consultoría Comercial Especializada: Actué como consultor estratégico para ópticas regionales, optimizando su rotación de stock y posicionando marcas premium en mercados competitivos de provincia."
+                ],
+                estrategias: ["Outsourcing", "Gestión de sociedades (partnership de 3)", "Ventas B2B de campo (prospección presencial)", "Consultoría en retail de lujo."],
+                herramientas: ["Plataformas de Freelancing", "CRM de ventas", "Gestión de proyectos y Logística comercial nacional."],
+                habilidades: ["Negociación de alto nivel", "Gestión del tiempo híbrido", "Adaptabilidad geográfica y mediación en liderazgos compartidos."],
+                logo: "imagenes/logo-solbie.jpg",
+                evidence: "", 
+                evidenceTitle: "SOLBIE",
+                clientes: []
+            },
+            royal: {
+                empresa: "HY Cite Enterprises | Royal Prestige",
+                rol: "DISTRIBUIDOR INDEPENDIENTE | ROYAL PRESTIGE",
+                fechas: "2023 – 2024",
+                intro: `Inicié mi trayectoria en la venta directa atraído por la sofisticación de un sistema de cierre de ticket alto y márgenes significativamente superiores a mis experiencias previas. En un periodo de año y medio, evolucioné de vendedor junior a liderar mi propia filial de la marca, profesionalizando mi técnica comercial y asumiendo la responsabilidad de reclutar y formar equipos de alto rendimiento en un entorno de máxima exigencia.`,
+                logros: [
+                    "Escalabilidad y Rendimiento Comercial: Alcancé picos de facturación con mi equipo de ventas de $10,000 semanales, logrando el tope de ingresos en mi carrera de s/ 16,000 en 1 mes mediante el dominio de la venta directa y la gestión de un equipo de 13 personas.",
+                    "Especialización en High-Ticket: Perfeccioné la venta de productos utilizando técnicas de demostración estratégica y cierres de impacto emocional y financiero.",
+                    "Liderazgo y Desarrollo de Equipos: Transicioné a la posición de Distribuidor Independiente (filial), encargándome del reclutamiento, capacitación y coaching comercial de nuevos representantes para replicar modelos de éxito en ventas.",
+                    "Análisis de Rentabilidad: Implementé un control riguroso de márgenes operativos, aprovechando la estructura de franquicia para maximizar beneficios del 35-50% sobre ventas directas."
+                ],
+                estrategias: ["Venta directa en frío y por referidos", "Demostraciones estratégicas de producto", "Gestion de Llamadas", "Estrategias de referidos", "Reclutamiento masivo."],
+                herramientas: ["Sistemas de financiamiento de casa matriz", "Metodologías de cierre de ticket alto."],
+                habilidades: ["Negociación persuasiva", "Resiliencia ante el rechazo", "Liderazgo de filiales y Coaching comercial."],
+                logo: "imagenes/logo-rp.jpg",
+                evidence: "imagenes/rp.jpg",
+                evidenceTitle: "ROYAL PRESTIGE",
+                clientes: []
+            },
+            nihm: {
+                empresa: "NIHM",
+                rol: "GROWTH LEADER | NHM",
+                fechas: "2024 – 2025",
+                intro: `Fui reclutado por el CEO de una de las empresas de implementacion de mobiliario más importantes del Perú tras realizar una demostración de royal prestige. Lo que inició como una consultoría para diseñar un plan de compensación para arquitectos, escaló rápidamente a una posición de liderazgo en crecimiento (Growth). En este rol, me he dedicado a descifrar la "anatomía del negocio" desde la logística en fábrica hasta la administración corporativa para conectar áreas críticas y automatizar procesos que antes demandaban semanas de trabajo manual.`,
+                logros: [
+                    "Automatización de Catálogos (Matriz de Stock): Diseñé e implementé un automatizador que conecta el ERP corporativo con una matriz inteligente, permitiendo generar catálogos personalizados en minutos. Esta optimización redujo procesos que tomaban Días a una ejecución de menos de una hora, eliminando cuellos de botella en el equipo de marketing.",
+                    "Inteligencia de Negocios y Prospección C-Level: Desarrollé sistemas de Business Intelligence para captar cuentas clave (Hoteles, Clínicas, Universidades), implementando herramientas de scraping y campañas de cold email automatizadas dirigidas a tomadores de decisión.",
+                    "Desarrollo de Aplicaciones Intra-empresariales: Programé herramientas personalizadas utilizando Python, AppScript, Google Workspace, KOMMO CRM Y GCP para automatizar presentaciones comerciales y personalizar la oferta para clientes B2B.",
+                    "Visibilidad de KPIs en Tiempo Real: Integré los flujos de llamadas, correos y reuniones con el CRM y el ERP, brindando a la gerencia una visión palpable de las tasas de conversión y el desempeño comercial diario.",
+                    "Diseño de Incentivos Estratégicos: Estructuré el primer plan de compensaciones para arquitectos de la compañía, logrando atraer y fidelizar a una comunidad de prescriptores mediante beneficios digitales y herramientas de gestión exclusivas."
+                ],
+                estrategias: ["Optimización de procesos", "Business Intelligence (BI)", "Prospección B2B masiva", "Gestión logística/operativa."],
+                herramientas: ["Python", "Google Cloud Platform (GCP)", "AppScript", "Macros de Google Workspace", "Sistemas ERP/CRM."],
+                habilidades: ["Arquitectura de software intra-empresarial", "Análisis de conversión comercial", "Liderazgo de transformación digital en entornos corporativos."],
+                logo: "imagenes/logo-nihm.png",
+                evidence: "imagenes/nihm.jpg",
+                evidenceTitle: "NIHM",
+                clientes: []
+            }
+        };
+
+        const homeView = document.getElementById('home-view');
+        const subpageView = document.getElementById('subpage-view');
+        let clientsInterval; // Variable global para detener el intervalo al salir
+
+        // Función reutilizable para renderizar bloques de etiquetas (Tags)
+        const renderTags = (id, tagsArray, wrapperId) => {
+            const container = document.getElementById(id);
+            const wrapper = document.getElementById(wrapperId);
+            if (tagsArray && tagsArray.length > 0) {
+                container.innerHTML = tagsArray.map(t => `<span class="tag">${t}</span>`).join('');
+                wrapper.style.display = 'block';
+            } else {
+                wrapper.style.display = 'none';
+            }
+        };
+
+        document.querySelectorAll('.timeline-node').forEach(node => {
+            node.addEventListener('click', () => {
+                const data = cvData[node.dataset.id];
+                
+                clearInterval(clientsInterval);
+
+                // Textos principales
+                document.getElementById('sp-rol').textContent = data.rol;
+                document.getElementById('sp-empresa-fechas').textContent = `${data.empresa} | ${data.fechas}`;
+                document.getElementById('sp-intro').textContent = data.intro;
+                document.getElementById('sp-logo').innerHTML = `<img src="${data.logo}" alt="Logo Empresa">`;
+                
+                // Logros
+                const logrosUl = document.getElementById('sp-logros');
+                logrosUl.innerHTML = data.logros.map(l => {
+                    const splitLogro = l.split(':');
+                    if(splitLogro.length > 1) {
+                        return `<li><strong>${splitLogro[0]}:</strong>${splitLogro.slice(1).join(':')}</li>`;
+                    }
+                    return `<li>${l}</li>`;
+                }).join('');
+
+                // Mapear los 3 apartados del bloque "Recursos y Competencias"
+                renderTags('sp-estrategias', data.estrategias, 'wrapper-estrategias');
+                renderTags('sp-herramientas', data.herramientas, 'wrapper-herramientas');
+                renderTags('sp-habilidades', data.habilidades, 'wrapper-habilidades');
+
+                // Evidencia (Imagen Principal)
+                const evidenceContainer = document.getElementById('sp-evidence-container');
+                if (data.evidence && data.evidence !== "") {
+                    document.getElementById('sp-evidence-title').textContent = `UN POCO DE ${data.evidenceTitle}`;
+                    document.getElementById('sp-evidence').src = data.evidence;
+                    evidenceContainer.style.display = 'block';
+                } else {
+                    evidenceContainer.style.display = 'none';
+                }
+
+                // Lógica Dinámica del Carrusel de Clientes (Rotación Uno a Uno)
+                const clientsContainer = document.getElementById('sp-clients-container');
+                const track = document.getElementById('sp-clients-track');
+                track.innerHTML = '';
+
+                if (data.clientes && data.clientes.length > 0) {
+                    clientsContainer.style.display = 'flex';
+                    let currentClientIndex = 0;
+                    const total = data.clientes.length;
+
+                    if (total >= 3) {
+                        const prevImg = document.createElement('img');
+                        const currentImg = document.createElement('img');
+                        const nextImg = document.createElement('img');
+
+                        prevImg.className = 'client-logo';
+                        currentImg.className = 'client-logo current-logo';
+                        nextImg.className = 'client-logo';
+
+                        track.appendChild(prevImg);
+                        track.appendChild(currentImg);
+                        track.appendChild(nextImg);
+
+                        const updateClients = () => {
+                            const prevIndex = (currentClientIndex - 1 + total) % total;
+                            const nextIndex = (currentClientIndex + 1) % total;
+
+                            // Quitamos la clase 'current' para que el logo central se achique visualmente
+                            currentImg.classList.remove('current-logo');
+                            
+                            setTimeout(() => {
+                                // Cambiamos las fuentes rápidamente
+                                prevImg.src = data.clientes[prevIndex];
+                                currentImg.src = data.clientes[currentClientIndex];
+                                nextImg.src = data.clientes[nextIndex];
+                                
+                                // Volvemos a añadir la clase 'current' para que destaque (Borde negro)
+                                currentImg.classList.add('current-logo');
+                            }, 150); 
+                        };
+
+                        // Setup Inicial
+                        prevImg.src = data.clientes[(currentClientIndex - 1 + total) % total];
+                        currentImg.src = data.clientes[currentClientIndex];
+                        nextImg.src = data.clientes[(currentClientIndex + 1) % total];
+
+                        // Rotación automática cada 2.5 segundos
+                        clientsInterval = setInterval(() => {
+                            currentClientIndex = (currentClientIndex + 1) % total;
+                            updateClients();
+                        }, 2500);
+
+                    } else {
+                        // Respaldo si solo hay 1 o 2 clientes (Estático)
+                        const currentImg = document.createElement('img');
+                        currentImg.src = data.clientes[0];
+                        currentImg.className = 'client-logo current-logo';
+                        track.appendChild(currentImg);
+                    }
+                } else {
+                    clientsContainer.style.display = 'none';
+                }
+
+                // Transición a la Subpágina
+                homeView.classList.add('view-leaving');
+                homeView.classList.remove('view-active');
+
+                setTimeout(() => {
+                    homeView.classList.add('view-hidden');
+                    homeView.classList.remove('view-leaving');
+                    subpageView.classList.remove('view-hidden');
+                    void subpageView.offsetWidth; 
+                    subpageView.classList.add('view-active');
+                    window.scrollTo({ top: 0, behavior: 'smooth' });
+                }, 400);
+            });
+        });
+
+        document.querySelector('.btn-back').addEventListener('click', () => {
+            clearInterval(clientsInterval);
+            subpageView.classList.add('view-leaving');
+            subpageView.classList.remove('view-active');
+
+            setTimeout(() => {
+                subpageView.classList.add('view-hidden');
+                subpageView.classList.remove('view-leaving');
+                homeView.classList.remove('view-hidden');
+                void homeView.offsetWidth;
+                homeView.classList.add('view-active');
+            }, 400);
+        });
+    </script>
+</body>
+</html>
