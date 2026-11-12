@@ -330,19 +330,18 @@
             background: rgba(18, 18, 18, 0.75);
             backdrop-filter: blur(8px);
             -webkit-backdrop-filter: blur(8px);
-            z-index: 1000;
-            display: flex;
+            z-index: 99999;
+            display: none;
             align-items: center;
             justify-content: center;
             padding: 2rem;
             opacity: 0;
-            pointer-events: none;
             transition: opacity 0.3s ease;
         }
 
         .modal-overlay.active {
+            display: flex !important;
             opacity: 1;
-            pointer-events: auto;
         }
 
         .modal-content {
@@ -565,7 +564,7 @@
                     </h2>
                     <div class="cert-grid">
                         <!-- Certificado 1: Harvard Business Publishing & PIPELINE -->
-                        <div class="cert-card" data-cert="pipeline">
+                        <div class="cert-card" data-cert="pipeline" onclick="openCertModal('pipeline')">
                             <div class="cert-thumb-wrapper">
                                 <img src="imagenes/certificado-pipeline-harvard.jpg" alt="Certificado AI-Driven Pipeline Generation Mastery">
                                 <div class="cert-zoom-icon">🔍</div>
@@ -578,7 +577,7 @@
                         </div>
 
                         <!-- Certificado 2: BIG School -->
-                        <div class="cert-card" data-cert="bigschool">
+                        <div class="cert-card" data-cert="bigschool" onclick="openCertModal('bigschool')">
                             <div class="cert-thumb-wrapper">
                                 <img src="imagenes/certificado-ia-bigschool.jpg" alt="Certificado Curso de IA 2026 BIG School">
                                 <div class="cert-zoom-icon">🔍</div>
@@ -961,37 +960,41 @@
         const modalCaption = document.getElementById('modal-caption');
         const modalClose = document.getElementById('modal-close');
 
-        document.querySelectorAll('.cert-card').forEach(card => {
-            card.addEventListener('click', () => {
-                const certId = card.getAttribute('data-cert');
-                const cert = certData[certId];
-                if (cert) {
-                    modalImg.src = cert.image;
-                    modalImg.alt = cert.title;
-                    modalTitle.textContent = cert.title;
-                    modalIssuer.textContent = cert.issuer;
-                    modalCaption.textContent = cert.caption;
-                    certModal.classList.add('active');
-                    document.body.style.overflow = 'hidden'; // Evita scroll de fondo
+        function openCertModal(certId) {
+            const cert = certData[certId];
+            if (cert && certModal) {
+                modalImg.src = cert.image;
+                modalImg.alt = cert.title;
+                modalTitle.textContent = cert.title;
+                modalIssuer.textContent = cert.issuer;
+                modalCaption.textContent = cert.caption;
+                certModal.classList.add('active');
+                document.body.style.overflow = 'hidden';
+            }
+        }
+
+        function closeCertModal() {
+            if (certModal) {
+                certModal.classList.remove('active');
+                document.body.style.overflow = '';
+            }
+        }
+
+        if (modalClose) {
+            modalClose.addEventListener('click', closeCertModal);
+        }
+
+        if (certModal) {
+            certModal.addEventListener('click', (e) => {
+                if (e.target === certModal) {
+                    closeCertModal();
                 }
             });
-        });
-
-        const closeModal = () => {
-            certModal.classList.remove('active');
-            document.body.style.overflow = '';
-        };
-
-        modalClose.addEventListener('click', closeModal);
-        certModal.addEventListener('click', (e) => {
-            if (e.target === certModal) {
-                closeModal();
-            }
-        });
+        }
 
         document.addEventListener('keydown', (e) => {
-            if (e.key === 'Escape' && certModal.classList.contains('active')) {
-                closeModal();
+            if (e.key === 'Escape' && certModal && certModal.classList.contains('active')) {
+                closeCertModal();
             }
         });
     </script>
