@@ -211,6 +211,234 @@
             transform: scale(1);
         }
 
+        /* Estilos de la Sección Certificaciones */
+        .certifications-section {
+            margin-top: 2rem;
+            display: flex;
+            flex-direction: column;
+            gap: 1.2rem;
+        }
+
+        .certifications-title {
+            font-size: 13px;
+            color: var(--text-main);
+            letter-spacing: 0.15em;
+            border-bottom: 1px solid var(--accent-gold-trans);
+            padding-bottom: 6px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .cert-grid {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 1rem;
+        }
+
+        .cert-card {
+            background: rgba(255, 255, 255, 0.7);
+            border: 1px solid rgba(212, 175, 55, 0.35);
+            border-radius: 10px;
+            padding: 0.9rem 1rem;
+            display: flex;
+            gap: 1rem;
+            align-items: center;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.02);
+        }
+
+        .cert-card:hover {
+            border-color: var(--accent-gold-solid);
+            box-shadow: 0 6px 20px var(--accent-gold-glow);
+            transform: translateY(-2px);
+            background: rgba(255, 255, 255, 0.95);
+        }
+
+        .cert-thumb-wrapper {
+            position: relative;
+            width: 85px;
+            height: 60px;
+            border-radius: 6px;
+            overflow: hidden;
+            flex-shrink: 0;
+            border: 1px solid var(--accent-gold-trans);
+            background: #f8f9fa;
+        }
+
+        .cert-thumb-wrapper img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.3s ease;
+        }
+
+        .cert-card:hover .cert-thumb-wrapper img {
+            transform: scale(1.08);
+        }
+
+        .cert-thumb-wrapper .cert-zoom-icon {
+            position: absolute;
+            inset: 0;
+            background: rgba(0, 0, 0, 0.35);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            opacity: 0;
+            transition: opacity 0.25s ease;
+            color: white;
+            font-size: 16px;
+        }
+
+        .cert-card:hover .cert-thumb-wrapper .cert-zoom-icon {
+            opacity: 1;
+        }
+
+        .cert-info {
+            display: flex;
+            flex-direction: column;
+            gap: 3px;
+            min-width: 0;
+        }
+
+        .cert-name {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 13px;
+            font-weight: 600;
+            color: var(--text-main);
+            letter-spacing: 0.03em;
+            line-height: 1.3;
+        }
+
+        .cert-issuer {
+            font-size: 11px;
+            color: var(--accent-gold-solid);
+            font-weight: 500;
+        }
+
+        .cert-desc {
+            font-size: 11px;
+            color: var(--text-sub);
+            line-height: 1.35;
+        }
+
+        /* Modal Lightbox para expandir certificados */
+        .modal-overlay {
+            position: fixed;
+            inset: 0;
+            background: rgba(18, 18, 18, 0.75);
+            backdrop-filter: blur(8px);
+            -webkit-backdrop-filter: blur(8px);
+            z-index: 1000;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 2rem;
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 0.3s ease;
+        }
+
+        .modal-overlay.active {
+            opacity: 1;
+            pointer-events: auto;
+        }
+
+        .modal-content {
+            background: rgba(255, 255, 255, 0.95);
+            border: 1px solid var(--accent-gold-trans);
+            border-radius: 14px;
+            max-width: 900px;
+            width: 100%;
+            max-height: 90vh;
+            display: flex;
+            flex-direction: column;
+            overflow: hidden;
+            box-shadow: 0 20px 50px rgba(0, 0, 0, 0.25);
+            transform: scale(0.95) translateY(10px);
+            transition: transform 0.3s ease;
+        }
+
+        .modal-overlay.active .modal-content {
+            transform: scale(1) translateY(0);
+        }
+
+        .modal-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1.2rem 1.5rem;
+            border-bottom: 1px solid rgba(0, 0, 0, 0.08);
+        }
+
+        .modal-title-group h3 {
+            font-size: 1.1rem;
+            color: var(--text-main);
+            margin-bottom: 3px;
+        }
+
+        .modal-title-group span {
+            font-size: 12px;
+            color: var(--accent-gold-solid);
+            font-weight: 500;
+        }
+
+        .modal-close-btn {
+            background: transparent;
+            border: none;
+            font-size: 26px;
+            line-height: 1;
+            color: var(--text-sub);
+            cursor: pointer;
+            padding: 4px 8px;
+            border-radius: 6px;
+            transition: all 0.2s ease;
+        }
+
+        .modal-close-btn:hover {
+            color: var(--text-main);
+            background: rgba(0, 0, 0, 0.05);
+        }
+
+        .modal-body {
+            padding: 1rem 1.5rem 1.5rem 1.5rem;
+            overflow-y: auto;
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+            align-items: center;
+        }
+
+        .modal-image-wrapper {
+            width: 100%;
+            display: flex;
+            justify-content: center;
+            background: #000;
+            border-radius: 8px;
+            overflow: hidden;
+            border: 1px solid rgba(0, 0, 0, 0.06);
+        }
+
+        .modal-image-wrapper img {
+            max-width: 100%;
+            max-height: 60vh;
+            object-fit: contain;
+            display: block;
+        }
+
+        .modal-caption {
+            font-size: 13px;
+            color: var(--text-sub);
+            line-height: 1.5;
+            text-align: justify;
+            width: 100%;
+            background: rgba(240, 242, 245, 0.5);
+            padding: 0.8rem 1rem;
+            border-radius: 8px;
+            border-left: 3px solid var(--accent-gold-solid);
+        }
+
         .view-hidden { display: none !important; }
         .view-active { animation: fadeInUp 0.5s ease-in-out forwards; }
         @keyframes fadeInUp { 0% { opacity: 0; transform: translateY(20px); } 100% { opacity: 1; transform: translateY(0); } }
@@ -329,7 +557,42 @@
                 <p class="profile-bio">
                     Estratega comercial y Desarrollador de Proyectos Empresariales con un ADN profundamente emprendedor. Gracias a una curiosidad insaciable mi trayectoria abarca desde la fundación de negocios rentables a temprana edad hasta el liderazgo corporativo en Growth y automatización B2B. Desde Escalar autoempleos hasta liderar operaciones corporativas B2B y automatización tecnológica. Mi enfoque integra inteligencia comercial, Ventas de High Ticket y Arquitectura de sistemas para escalar resultados tangibles manteniendome al tanto de las ultimas tendencias en ecosistemas de AI, Prompt y Software Engineering.
                 </p>
-                <p style="font-size: 12px; color: var(--text-muted); font-style: italic;">* Haga clic en los nodos de la línea de tiempo para ver el detalle.</p>
+
+                <!-- Sección Certificaciones -->
+                <div class="certifications-section">
+                    <h2 class="certifications-title">
+                        <span>CERTIFICACIONES & CREDENCIALES</span>
+                    </h2>
+                    <div class="cert-grid">
+                        <!-- Certificado 1: Harvard Business Publishing & PIPELINE -->
+                        <div class="cert-card" data-cert="pipeline">
+                            <div class="cert-thumb-wrapper">
+                                <img src="imagenes/certificado-pipeline-harvard.jpg" alt="Certificado AI-Driven Pipeline Generation Mastery">
+                                <div class="cert-zoom-icon">🔍</div>
+                            </div>
+                            <div class="cert-info">
+                                <h3 class="cert-name">AI-Driven Pipeline Generation Mastery</h3>
+                                <span class="cert-issuer">PIPELINE Business School &amp; Harvard Business Publishing</span>
+                                <p class="cert-desc">Arquitectura y aceleración predictiva de ventas B2B con Inteligencia Artificial.</p>
+                            </div>
+                        </div>
+
+                        <!-- Certificado 2: BIG School -->
+                        <div class="cert-card" data-cert="bigschool">
+                            <div class="cert-thumb-wrapper">
+                                <img src="imagenes/certificado-ia-bigschool.jpg" alt="Certificado Curso de IA 2026 BIG School">
+                                <div class="cert-zoom-icon">🔍</div>
+                            </div>
+                            <div class="cert-info">
+                                <h3 class="cert-name">Curso de IA 2026: Vibe Coding y Automatizaciones</h3>
+                                <span class="cert-issuer">BIG School (Romuald Fons &amp; Jon Hernández)</span>
+                                <p class="cert-desc">Automatización avanzada con IA, programación asistida y desarrollo ágil.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <p style="font-size: 12px; color: var(--text-muted); font-style: italic; margin-top: 0.5rem;">* Haga clic en las certificaciones para verlas en detalle o en los nodos de la línea de tiempo para ver la trayectoria.</p>
             </section>
 
             <section class="timeline-section">
@@ -674,6 +937,82 @@
                 homeView.classList.add('view-active');
             }, 400);
         });
+
+        // Datos e interactividad del Modal de Certificados
+        const certData = {
+            pipeline: {
+                title: "AI-Driven Pipeline Generation Mastery",
+                issuer: "PIPELINE Business School & Harvard Business Publishing Education",
+                image: "imagenes/certificado-pipeline-harvard.jpg",
+                caption: "Certificación oficial expedida tras completar el programa 'AI-Driven PIPELINE Architecture & Systems Program' en colaboración con Harvard Business Publishing Education. Acredita competencias avanzadas en el diseño, aceleración y escalamiento predictivo de pipelines comerciales B2B impulsados con Inteligencia Artificial."
+            },
+            bigschool: {
+                title: "Certificado de Asistencia al Curso de IA 2026",
+                issuer: "BIG School (Romuald Fons & Jon Hernández)",
+                image: "imagenes/certificado-ia-bigschool.jpg",
+                caption: "Certificado otorgado por la asistencia intensiva a las jornadas especializadas de Inteligencia Artificial de BIG School. Abarca metodologías vanguardistas de Vibe Coding, automatización de flujos de trabajo con modelos generativos y aplicación práctica de IA en desarrollo ágil."
+            }
+        };
+
+        const certModal = document.getElementById('cert-modal');
+        const modalImg = document.getElementById('modal-img');
+        const modalTitle = document.getElementById('modal-title');
+        const modalIssuer = document.getElementById('modal-issuer');
+        const modalCaption = document.getElementById('modal-caption');
+        const modalClose = document.getElementById('modal-close');
+
+        document.querySelectorAll('.cert-card').forEach(card => {
+            card.addEventListener('click', () => {
+                const certId = card.getAttribute('data-cert');
+                const cert = certData[certId];
+                if (cert) {
+                    modalImg.src = cert.image;
+                    modalImg.alt = cert.title;
+                    modalTitle.textContent = cert.title;
+                    modalIssuer.textContent = cert.issuer;
+                    modalCaption.textContent = cert.caption;
+                    certModal.classList.add('active');
+                    document.body.style.overflow = 'hidden'; // Evita scroll de fondo
+                }
+            });
+        });
+
+        const closeModal = () => {
+            certModal.classList.remove('active');
+            document.body.style.overflow = '';
+        };
+
+        modalClose.addEventListener('click', closeModal);
+        certModal.addEventListener('click', (e) => {
+            if (e.target === certModal) {
+                closeModal();
+            }
+        });
+
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape' && certModal.classList.contains('active')) {
+                closeModal();
+            }
+        });
     </script>
+
+    <!-- Modal Lightbox para Certificados Expandibles -->
+    <div id="cert-modal" class="modal-overlay" role="dialog" aria-modal="true" aria-labelledby="modal-title">
+        <div class="modal-content">
+            <header class="modal-header">
+                <div class="modal-title-group">
+                    <h3 id="modal-title">Certificado</h3>
+                    <span id="modal-issuer">Institución Emisora</span>
+                </div>
+                <button id="modal-close" class="modal-close-btn" aria-label="Cerrar modal">&times;</button>
+            </header>
+            <div class="modal-body">
+                <div class="modal-image-wrapper">
+                    <img id="modal-img" src="" alt="Certificado Expandido">
+                </div>
+                <p id="modal-caption" class="modal-caption"></p>
+            </div>
+        </div>
+    </div>
 </body>
 </html>
