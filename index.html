@@ -84,6 +84,47 @@
         .profile-name { font-size: 2.2rem; font-weight: 400; color: var(--text-main); letter-spacing: 0.15em; }
         .profile-bio { text-align: justify; font-size: 15px; color: var(--text-sub); }
 
+        /* Barra de Contacto */
+        .contact-bar {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.75rem;
+            align-items: center;
+        }
+
+        .contact-item {
+            display: inline-flex;
+            align-items: center;
+            gap: 7px;
+            padding: 6px 14px;
+            border-radius: 20px;
+            background: rgba(255, 255, 255, 0.75);
+            border: 1px solid rgba(212, 175, 55, 0.35);
+            color: var(--text-main);
+            text-decoration: none;
+            font-size: 12.5px;
+            font-weight: 500;
+            letter-spacing: 0.02em;
+            transition: all 0.25s ease;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.02);
+        }
+
+        .contact-item:hover {
+            border-color: var(--accent-gold-solid);
+            background: #ffffff;
+            color: #000000;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 14px var(--accent-gold-glow);
+        }
+
+        .contact-icon {
+            font-size: 13px;
+            line-height: 1;
+            display: flex;
+            align-items: center;
+            color: var(--accent-gold-solid);
+        }
+
         .timeline-section { position: relative; padding: 2rem 0; display: flex; flex-direction: column; gap: 3.5rem; }
         .timeline-line {
             position: absolute; left: 24px; top: 0; bottom: 0; width: 2px;
@@ -553,6 +594,23 @@
                     <img src="imagenes/perfil-cv.jpg" alt="Jose Angel Borges">
                 </div>
                 <h1 class="profile-name">JOSE ANGEL BORGES</h1>
+                
+                <!-- Contacto Rápido -->
+                <div class="contact-bar">
+                    <a href="tel:+51942575425" class="contact-item" title="Llamar o contactar">
+                        <span class="contact-icon">📞</span>
+                        <span>942 575 425</span>
+                    </a>
+                    <a href="https://wa.me/51942575425" target="_blank" rel="noopener noreferrer" class="contact-item" title="Escribir por WhatsApp">
+                        <span class="contact-icon">💬</span>
+                        <span>WhatsApp</span>
+                    </a>
+                    <a href="mailto:jangelborges@gmail.com" class="contact-item" title="Enviar correo">
+                        <span class="contact-icon">✉️</span>
+                        <span>jangelborges@gmail.com</span>
+                    </a>
+                </div>
+
                 <p class="profile-bio">
                     Estratega comercial y Desarrollador de Proyectos Empresariales con un ADN profundamente emprendedor. Gracias a una curiosidad insaciable mi trayectoria abarca desde la fundación de negocios rentables a temprana edad hasta el liderazgo corporativo en Growth y automatización B2B. Desde Escalar autoempleos hasta liderar operaciones corporativas B2B y automatización tecnológica. Mi enfoque integra inteligencia comercial, Ventas de High Ticket y Arquitectura de sistemas para escalar resultados tangibles manteniendome al tanto de las ultimas tendencias en ecosistemas de AI, Prompt y Software Engineering.
                 </p>
